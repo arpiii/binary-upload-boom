@@ -7,15 +7,21 @@ const PostSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    require: true,
+    // require: true,
   },
   cloudinaryId: {
     type: String,
-    require: true,
+    // require: true,
   },
-  caption: {
+  // caption: {
+  //   type: String,
+  //   required: true,
+  // },
+  workout: {
     type: String,
-    required: true,
+  },
+  diet: {
+    type: String,
   },
   likedBy: {
     type: [String],
