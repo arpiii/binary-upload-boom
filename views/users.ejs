@@ -1,0 +1,22 @@
+<%- include('partials/header') -%>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <ul class="row list-unstyled">
+        <% for(var i=0; i<users.length; i++) {%>
+          <li class="col-6 justify-content-between mt-5">
+            <a href="/profile/<%= users[i].userName%>">
+              <h3><%= users[i].userName %></h3>
+              <img class="img-fluid" src="">
+            </a>
+          </li>
+        <% } %>
+        </ul>
+        <div class="row justify-content-center mt-5 col-2">
+          <a class="btn btn-primary" href="/profile/<%= user.userName %>">Return to Profile</a>
+        </div>
+        <div class="row justify-content-center mt-5 col-2">
+          <a class="btn btn-primary" href="/feed">Return to Feed</a>
+        </div>
+    </div>
+  </div>  
+<%- include('partials/footer') -%>

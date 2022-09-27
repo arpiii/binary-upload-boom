@@ -1,6 +1,9 @@
 <%- include('partials/header') -%>
 <div class="container">
   <div class="row mt-5">
+    
+    <h2 class="d-flex justify-content-center">User: <%= userProfile.userName %></h2>
+    
       <div class="col-6">
           <div>
               <p><strong>User Name</strong>: <%= user.userName %></p>
@@ -8,6 +11,7 @@
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
           </div>
           <div class="mt-5">
+            <% if(user.userName === userProfile.userName) {%>
             <h2>Add a post</h2>
             <form action="/post/createPost" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
@@ -15,8 +19,12 @@
                   <input type="text" class="form-control" id="title" name="title">
               </div>
               <div class="mb-3">
-                <label for="caption" class="form-label">Caption</label>
-                <textarea class="form-control" id="caption" name="caption"></textarea>
+                <label for="workout" class="form-label">Workout Routine</label>
+                <textarea class="form-control" id="workout" name="workout" placeholder="Write each step on a new line."></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="diet" class="form-label">Diet</label>
+                <textarea class="form-control" id="diet" name="diet" placeholder="Write each meal on a new line."></textarea>
               </div>
               <div class="mb-3">
                 <label for="imgUpload" class="form-label">Image</label>
@@ -25,12 +33,14 @@
               <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
             </form>
           </div>
+          <% } %>
       </div>
       <div class="col-6">
         <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
             <a href="/post/<%= posts[i]._id%>">
+              <h3><%= posts[i].title %></h3>
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
           </li>
@@ -38,6 +48,7 @@
         </ul>
         <div class="row justify-content-center mt-5">
           <a class="btn btn-primary" href="/feed">Return to Feed</a>
+          <a class="btn btn-primary" href="/users">Return to Users</a>
         </div>  
       </div>  
     </div>
