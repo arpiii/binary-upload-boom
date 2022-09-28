@@ -1,16 +1,16 @@
 <%- include('partials/header') -%>
-<div class="container">
-  <div class="row justify-content-center mt-5">
-    <div class="col-6">
+<div>
+  <div class="flex flex-row justify-evenly mt-5">
+    <div class="col-6 text-secondary">
       <h2><%= post.title %></h2>
       <img class="img-fluid" src="<%= post.image%>" />
-      <div class="row justify-content-between">
+      <div class="row justify-between">
         <form
           class="col-1"
           action="/post/likePost/<%= post.id %>?_method=PUT"
           method="POST"
         >
-          <button class="btn btn-primary fa fa-heart" type="submit"></button>
+          <button class="btn btn-secondary fa fa-heart" type="submit"></button>
         </form>
         <h3 class="col-3">Likes: <%= post.likes %></h3>
         <h3 class="col-3">
@@ -29,54 +29,90 @@
           <button class="btn btn-primary fa fa-trash" type="submit"></button>
         </form>
         <%}%>
+
+        <div class="align-bottom">
+          <h2>Add a Comment</h2>
+          <form action="/comment/createComment/<%=post.id%>" method="POST" class="col-3">
+            <input type="text" name="comment" required>
+            <button class="btn btn-secondary" type="submit">Comment</button>
+          </form>
+        </div>
+        <ul class="col-6">
+          <% for (let i = 0; i < comments.length; i++) {%>
+            <li class="col-6 justify-between mt-5">
+              <%=comments[i].comment%> <br>
+              - <%=comments[i].userName%>
+                <%if(comments[i].user == user.id){ %>
+                  <form action="/comment/deleteComment/<%=comments[i]._id%>?_method=DELETE" method="POST" class="col-3">
+                    <button class="btn btn-primary fa fa-trash" type="submit"></button>
+                  </form>
+                <%}%>
+              <%}%>
+            </li>
+        </ul>
       </div>
     </div>
+
+    
+
     <div class="col-3 mt-5">
-      <h2>Workout</h2>
+      <!-- <h2>Workout</h2>
       <ul class="list-unstyled">
         <%for(let i = 0; i < post.workout.split('\n').length; i++){ %>
           <li>
             <p><%= post.workout.split('\n')[i] %></p>
           </li>
         <%}%>
-      </ul>
+      </ul> -->
+      <div class="collapse">
+        <input type="checkbox" class="peer"/> 
+        <div class="collapse-title bg-secondary text-primary-content peer-checked:bg-secondary peer-checked:text-base">
+          Workout
+        </div>
+        <div class="collapse-content bg-secondary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content"> 
+          <ul class="list-unstyled">
+            <%for(let i = 0; i < post.workout.split('\n').length; i++){ %>
+              <li>
+                <p><%= post.workout.split('\n')[i] %></p>
+              </li>
+            <%}%>
+          </ul>
+        </div>
+      </div>
 
-      <h2>Diet</h2>
+      <div class="collapse">
+        <input type="checkbox" class="peer" /> 
+        <div class="collapse-title bg-secondary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+          Diet
+        </div>
+        <div class="collapse-content bg-secondary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content"> 
+          <ul class="list-unstyled">
+            <%for(let i = 0; i < post.diet.split('\n').length; i++){ %>
+              <li>
+                <p><%= post.diet.split('\n')[i] %></p>
+              </li>
+            <%}%>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <h2>Diet</h2>
       <ul class="list-unstyled">
         <%for(let i = 0; i < post.diet.split('\n').length; i++){ %>
           <li>
             <p><%= post.diet.split('\n')[i] %></p>
           </li>
         <%}%>
-      </ul>
+      </ul> -->
       
       
     </div>
-    <h2>Add a Comment</h2>
-    <div>
-      <form action="/comment/createComment/<%=post.id%>" method="POST" class="col-3">
-        <input type="text" name="comment" required>
-        <button class="btn btn-primary" type="submit">Comment</button>
-      </form>
-    </div>
-    <ul class="col-6">
-      <% for (let i = 0; i < comments.length; i++) {%>
-        <li class="col-6 justify-content-between mt-5">
-          <%=comments[i].comment%> <br>
-          - <%=comments[i].userName%>
-            <%if(comments[i].user == user.id){ %>
-              <form action="/comment/deleteComment/<%=comments[i]._id%>?_method=DELETE" method="POST" class="col-3">
-                <button class="btn btn-primary fa fa-trash" type="submit"></button>
-              </form>
-            <%}%>
-          <%}%>
-        </li>
-    </ul>
-    <div class="col-6 mt-5">
+    
+    <!-- <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile/<%= user.userName %>">Return to Profile</a>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
       <a class="btn btn-primary" href="/users">Return to Users</a>
-    </div>
+    </div> -->
   </div>
 </div>
 
